@@ -1,46 +1,47 @@
-# WEB//SLINGER
+# TETHER//ZERO
 
-A polished, one-button web-swinging physics game for the browser.
+**One line between you and space.**
 
-**Play:** https://webline-rishi.vercel.app
+TETHER//ZERO is a compact one-button orbital escape game. Kestrel-7 is breaking apart, your mobility rig is offline, and the emergency magnetic tether is the only system still answering.
 
-The project uses an original spider-inspired hero and original procedural/vector visuals. It does not bundle official Marvel artwork, logos, audio, or game assets.
+## Play
 
-## The rule
+Production: **https://tether-zero-rishi.vercel.app**
 
-There is only one gameplay input:
+## Controls
 
-- **Hold SPACE / hold touch** → attach to the nearest reachable web point.
-- **Release** → let go and preserve momentum.
+There is one gameplay input:
 
-There is no WASD movement and no mouse aiming.
+- **Hold `SPACE` / hold touch** — tether to the nearest active magnetic node.
+- **Release** — disconnect and preserve momentum.
 
-### Forgiving magnetic web targeting
+The targeting is deliberately forgiving: crossed anchors remain valid if they are nearest, and holding the input keeps reacquiring until a node enters range.
 
-The web system is intentionally generous:
+## Complete campaign
 
-- It uses the **nearest reachable hook**, not a directional cone.
-- A hook can still be selected **after the player has crossed it**.
-- Holding the input continuously reacquires until a hook enters range.
-- The currently preferred hook is visibly highlighted.
+Five chapters / twelve missions:
 
-This keeps difficulty in swing timing and course design rather than frustrating targeting misses.
+1. **SYSTEM FAILURE** — Wake, Gravity Loss, Blast Door
+2. **DECOMPRESSION** — Hull Breach, Vacuum Run, Lockdown
+3. **REACTOR** — Heat Sink, Turbine, Core Transit
+4. **OUTSIDE** — Open Space, Solar Array
+5. **COLLAPSE** — Final Escape
 
-## Current game
+The campaign introduces fragile one-use anchors, pulsing magnetic nodes, decompression vents, moving debris, security lasers, turbine rotors, bounce plates, zero-gravity exterior traversal, checkpoints, a pursuing collapse wall, and a final escape-pod sequence.
 
-- 18 handcrafted courses
-- One-button desktop and mobile controls
-- Magnetic nearest-hook targeting
-- Momentum-preserving web physics
-- Bounce pads and wall bumpers
-- Moving/orbiting web points
-- Hazards, checkpoints and finish gates
-- Red/blue spider-inspired presentation
-- Web-strand tether rendering
-- Procedural masked stick-hero animation
-- Speed trails, particles, camera feedback and generated audio
-- 1–3 star course ratings
-- Best-time and unlock persistence
+## Systems
+
+- Momentum-preserving rope constraint
+- Magnetic nearest-anchor targeting
+- Tether Snap high-skill release boost
+- Moving/orbiting/fragile/pulse anchors
+- Dynamic gravity and decompression forces
+- Lasers, turbines, debris and collision hazards
+- Chapter briefings, mission log, results and epilogue
+- Best times, ratings and mission unlocking in localStorage
+- Procedural station/exterior rendering and particles
+- Generated Web Audio feedback
+- Desktop and mobile input
 
 ## Development
 
@@ -49,7 +50,7 @@ npm install
 npm run dev
 ```
 
-Validation and production build:
+Validation + production build:
 
 ```bash
 npm test
@@ -57,7 +58,9 @@ npm test
 
 ## Stack
 
-Phaser 3 + Vite + JavaScript modules + Web Audio + localStorage.
+Phaser 3 + Vite + JavaScript modules + Web Audio API + localStorage.
+
+All game visuals and audio are original/procedural; no third-party character or franchise assets are bundled.
 
 ## License
 

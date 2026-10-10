@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" />
-  <meta name="theme-color" content="#071020" />
-  <meta name="description" content="WEB//SLINGER — a one-button web-swinging momentum game." />
-  <title>WEB//SLINGER</title>
+  <meta name="theme-color" content="#050914" />
+  <meta name="description" content="TETHER//ZERO — a one-button orbital escape game." />
+  <title>TETHER//ZERO</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
@@ -16,53 +16,82 @@
     <div id="game"></div>
 
     <header id="hud" class="hud is-hidden">
-      <button id="backBtn" class="round-button" aria-label="Back to level select">‹</button>
-      <div class="progress-wrap">
-        <div class="level-numbers"><span id="levelCurrent">1</span><span id="levelNext">2</span></div>
+      <button id="backBtn" class="hud-button" aria-label="Back to mission select">‹</button>
+      <div class="hud-center">
+        <div class="hud-meta"><span id="hudChapter">CHAPTER 01</span><strong id="hudMission">WAKE</strong></div>
         <div class="progress-track"><i id="progressBar"></i><b id="progressDot"></b></div>
       </div>
-      <button id="restartBtn" class="round-button restart" aria-label="Restart level">↻</button>
+      <div class="hud-stats">
+        <div><span>VEL</span><strong id="hudSpeed">000</strong></div>
+        <div><span>TIME</span><strong id="hudTime">0.0</strong></div>
+      </div>
+      <button id="restartBtn" class="hud-button restart" aria-label="Restart mission">↻</button>
     </header>
 
     <section id="home" class="screen active">
-      <div class="hero-mark" aria-hidden="true"><span></span><i></i><b></b></div>
-      <div class="eyebrow">ONE BUTTON · ONE WEB · KEEP MOVING</div>
-      <h1>WEB<span>//SLINGER</span></h1>
-      <p>Hold to web the nearest point. Release to fly.</p>
-      <button id="playBtn" class="primary-button">SWING</button>
-      <button id="levelsBtn" class="text-button">LEVELS</button>
-      <div class="control-pill"><kbd>SPACE</kbd><span>HOLD TO WEB · RELEASE TO FLY</span></div>
-      <div class="tap-hint">Hold anywhere · release anywhere</div>
+      <div class="station-mark" aria-hidden="true"><i></i><b></b><span></span></div>
+      <div class="eyebrow">KESTREL-7 / EMERGENCY CHANNEL</div>
+      <h1>TETHER<span>//ZERO</span></h1>
+      <p class="tagline">One line between you and space.</p>
+      <div class="status-strip"><b>03:17 UTC</b><span>ATTITUDE CONTROL LOST</span><i>EVACUATE</i></div>
+      <button id="continueBtn" class="primary-button">BEGIN ESCAPE</button>
+      <button id="missionsBtn" class="text-button">MISSION SELECT</button>
+      <div class="control-pill"><kbd>SPACE</kbd><span>HOLD TO TETHER · RELEASE TO FLY</span></div>
     </section>
 
-    <section id="levels" class="screen">
-      <div class="sheet">
+    <section id="briefing" class="screen">
+      <div class="brief-card">
+        <div id="briefChapter" class="eyebrow">CHAPTER 01 / SYSTEM FAILURE</div>
+        <div class="mission-number" id="briefNumber">01</div>
+        <h2 id="briefTitle">WAKE</h2>
+        <p id="briefText"></p>
+        <div class="brief-rule"><span></span><b>ONE INPUT</b><p>Hold Space to connect the nearest magnetic node. Release to carry momentum.</p></div>
+        <button id="deployBtn" class="primary-button">ENGAGE TETHER</button>
+        <button id="briefBackBtn" class="text-button">BACK</button>
+      </div>
+    </section>
+
+    <section id="missions" class="screen">
+      <div class="mission-sheet">
         <div class="sheet-head">
-          <div><div class="eyebrow">WEB COURSE SELECT</div><h2>18 SWINGS</h2></div>
-          <button class="round-button" data-close>×</button>
+          <div><div class="eyebrow">KESTREL-7 ESCAPE ROUTE</div><h2>MISSION LOG</h2></div>
+          <button id="closeMissions" class="hud-button">×</button>
         </div>
-        <div id="levelGrid" class="level-grid"></div>
+        <div id="missionGrid" class="chapter-list"></div>
       </div>
     </section>
 
     <section id="result" class="screen">
       <div class="result-card">
-        <div class="eyebrow">COURSE CLEARED</div>
-        <h2 id="resultTitle">CLEAN SWING</h2>
+        <div class="eyebrow">SECTION SECURED</div>
+        <h2 id="resultTitle">TETHER STABLE</h2>
         <div id="resultStars" class="stars">★★★</div>
+        <p id="resultStory" class="result-story"></p>
         <div class="result-stats">
           <div><span>TIME</span><strong id="resultTime">0.00s</strong></div>
           <div><span>BEST</span><strong id="resultBest">0.00s</strong></div>
-          <div><span>RESTARTS</span><strong id="resultDeaths">0</strong></div>
+          <div><span>RESTARTS</span><strong id="resultRestarts">0</strong></div>
         </div>
-        <button id="nextBtn" class="primary-button">NEXT</button>
-        <button id="retryBtn" class="text-button">SWING AGAIN</button>
+        <button id="nextBtn" class="primary-button">NEXT SECTION</button>
+        <button id="retryBtn" class="text-button">RUN AGAIN</button>
+      </div>
+    </section>
+
+    <section id="ending" class="screen">
+      <div class="ending-card">
+        <div class="ending-earth" aria-hidden="true"></div>
+        <div class="eyebrow">ESCAPE POD / CLEAR OF KESTREL-7</div>
+        <h2>YOU MADE IT.</h2>
+        <p>The docking seal closes. The alarms disappear. Behind you, Kestrel-7 breaks into a silent field of light above Earth.</p>
+        <div class="ending-line">ONE LINE WAS ENOUGH.</div>
+        <button id="endingMissionsBtn" class="primary-button">MISSION LOG</button>
+        <button id="endingHomeBtn" class="text-button">TITLE SCREEN</button>
       </div>
     </section>
 
     <div id="startPrompt" class="start-prompt is-hidden">
       <strong>HOLD <kbd>SPACE</kbd></strong>
-      <span>nearest web point connects automatically</span>
+      <span>magnetic tether auto-locks the nearest active node</span>
     </div>
     <div id="toast" class="toast"></div>
   </main>

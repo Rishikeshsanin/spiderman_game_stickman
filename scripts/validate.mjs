@@ -1,36 +1,42 @@
-import {access,readFile} from 'node:fs/promises';
-import {LEVELS} from '../src/game/levels.js';
-import {HOOK_RANGE,nearestHook} from '../src/game/hookTargeting.js';
+import { access, readFile } from 'node:fs/promises';
+import { MISSIONS, chapters } from '../src/game/campaign.js';
+import { TETHER_RANGE, nearestAnchor } from '../src/game/hookTargeting.js';
 
 const required=[
-  'index.html','styles.css','src/main.js','src/game/GameScene.js',
-  'src/game/levels.js','src/game/audio.js','src/game/hookTargeting.js'
+  'index.html','styles.css','src/main.js','src/game/GameScene.js','src/game/campaign.js',
+  'src/game/audio.js','src/game/hookTargeting.js'
 ];
 await Promise.all(required.map(f=>access(new URL(`../${f}`,import.meta.url))));
 
-if(LEVELS.length!==18) throw new Error(`Expected 18 levels, got ${LEVELS.length}`);
-for(const [i,l] of LEVELS.entries()){
-  if(!l.length||!l.par||!Array.isArray(l.objects)||!l.objects.some(o=>o.type==='hook')) throw new Error(`Invalid level ${i+1}`);
-  if(l.length<1600) throw new Error(`Level ${i+1} too short`);
+if(MISSIONS.length!==12) throw new Error(`Expected 12 campaign missions, got ${MISSIONS.length}`);
+if(chapters().length!==5) throw new Error(`Expected 5 chapters, got ${chapters().length}`);
+for(const [i,m] of MISSIONS.entries()){
+  if(m.id!==i+1) throw new Error(`Mission id mismatch at ${i}`);
+  if(!m.title||!m.chapterName||!m.briefing||!m.outro||!m.length||!m.par) throw new Error(`Mission ${m.id} is missing narrative/game metadata`);
+  if(!Array.isArray(m.objects)||!m.objects.some(o=>o.type==='anchor')) throw new Error(`Mission ${m.id} has no tether anchors`);
+  if(m.length<1800) throw new Error(`Mission ${m.id} is too short`);
 }
+if(!MISSIONS.at(-1).chaser) throw new Error('Final mission must include the collapse chase');
+if(!MISSIONS.some(m=>m.objects.some(o=>o.type==='rotor'))) throw new Error('Campaign must include rotor set piece');
+if(!MISSIONS.some(m=>m.objects.some(o=>o.type==='vent'))) throw new Error('Campaign must include decompression vents');
+if(!MISSIONS.some(m=>m.objects.some(o=>o.type==='laser'))) throw new Error('Campaign must include security lasers');
+if(!MISSIONS.some(m=>m.objects.some(o=>o.kind==='fragile'))) throw new Error('Campaign must include fragile anchors');
+if(!MISSIONS.some(m=>m.objects.some(o=>o.kind==='pulse'))) throw new Error('Campaign must include pulse anchors');
 
-const pos=h=>({x:h.x,y:h.y});
 const player={x:500,y:400};
-
-const crossed=nearestHook(player,[{id:'behind',x:420,y:260},{id:'ahead',x:850,y:230}],pos);
-if(crossed?.hook.id!=='behind') throw new Error('Crossed/behind nearest hook must remain selectable.');
-
-const simple=nearestHook(player,[{id:'near',x:610,y:280},{id:'far',x:1000,y:200}],pos);
-if(simple?.hook.id!=='near') throw new Error('Nearest hook targeting failed.');
-
-const out=nearestHook(player,[{id:'too-far',x:500+HOOK_RANGE+20,y:400}],pos);
-if(out!==null) throw new Error('Out-of-range hook should not be selected.');
+const anchors=[{id:'crossed',x:420,y:260},{id:'ahead',x:980,y:250}];
+const picked=nearestAnchor(player,anchors,a=>({x:a.x,y:a.y}),()=>true,TETHER_RANGE);
+if(picked?.anchor.id!=='crossed') throw new Error('Nearest crossed anchor must remain selectable');
+const unavailable=nearestAnchor(player,[{id:'off',x:540,y:300},{id:'on',x:700,y:300}],a=>a,a=>a.id==='on',TETHER_RANGE);
+if(unavailable?.anchor.id!=='on') throw new Error('Unavailable anchor filtering failed');
 
 const html=await readFile(new URL('../index.html',import.meta.url),'utf8');
-for(const id of ['game','home','levels','result','hud','progressBar']) if(!html.includes(`id="${id}"`)) throw new Error(`Missing #${id}`);
-
+for(const id of ['game','home','briefing','missions','result','ending','hud','progressBar']){
+  if(!html.includes(`id="${id}"`)) throw new Error(`Missing #${id}`);
+}
 const game=await readFile(new URL('../src/game/GameScene.js',import.meta.url),'utf8');
-if(/KeyA|KeyD|ArrowLeft|ArrowRight/.test(game)) throw new Error('One-button rule violated.');
-if(!game.includes('this.holding&&!this.rope')) throw new Error('Held-input magnetic reacquisition is missing.');
+if(/KeyA|KeyD|ArrowLeft|ArrowRight/.test(game)) throw new Error('One-button gameplay rule violated');
+if(!game.includes('this.holding&&!this.rope')) throw new Error('Held-input tether reacquisition missing');
+if(!game.includes("released.kind==='fragile'")) throw new Error('Fragile anchor lifecycle missing');
 
-console.log('WEB//SLINGER validation passed: 18 levels, magnetic nearest-hook targeting, crossed-hook grace, one-button controls.');
+console.log('TETHER//ZERO validation passed: 5 chapters, 12 missions, one-button tethering, campaign mechanics and finale verified.');
