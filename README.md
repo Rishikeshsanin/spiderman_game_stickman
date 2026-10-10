@@ -1,86 +1,71 @@
-# THREAD//RUNNER
+# WEBLINE
 
-A fast, cinematic, physics-based web-swinging stickman game that runs directly in the browser.
+**One button. Pure momentum.**
 
-🎮 **Play V1:** https://thread-runner.vercel.app
+WEBLINE is a browser physics game inspired by the simplicity of one-button hook games: the character is always moving and the player only controls when to attach and release the line.
 
-> **V1 goal:** make movement feel satisfying first. The project uses an original hero and original procedural/vector visuals; it does not ship Marvel/Spider-Man artwork, logos, music, character models, or other copyrighted assets.
+## Play
 
-## What is playable now
-
-- Momentum-based grapple/web swinging with a soft rope constraint
-- Running, jumping, air control, front flips and backflips
-- Flow/combo meter with perfect-release and near-miss rewards
-- Five escalating handcrafted/procedural level themes
-  1. Rooftop Rush
-  2. Downtown Velocity
-  3. Construction Chaos
-  4. Neon Overdrive
-  5. Redline
-- Drones, cranes, signs and billboards as hazards
-- Cinematic follow camera, speed zoom, screen shake and speed lines
-- Procedural skyline rendering, lit windows, parallax, rain and particles
-- Desktop mouse/keyboard controls
-- Touch/mobile controls
-- Local progression, level unlocking and best-score saving
-- Pause, restart, level-select and result screens
-- Zero runtime dependencies and no external art/audio downloads
+**https://thread-runner.vercel.app**
 
 ## Controls
 
-| Action | Desktop | Touch |
-| --- | --- | --- |
-| Attach web | Hold mouse / `Space` in air | Hold **WEB** |
-| Release web | Release mouse / `Space` | Release **WEB** |
-| Pump / air steer | `A` / `D` or arrow keys | Left / Right |
-| Jump | `Space` on a rooftop | Automatic via WEB flow / touch controls |
-| Flip | `W` / `S` | **FLIP** |
-| Pause | `Esc` or HUD button | HUD button |
+- **Hold `SPACE`** — automatically attach to the best usable hook
+- **Release `SPACE`** — preserve momentum and fly
+- **Touch / hold anywhere** — mobile equivalent
 
-## Run locally
+There is no WASD movement and no mouse aiming.
 
-No build step is required.
+## V2 gameplay
+
+- 18 handcrafted courses
+- Auto-targeting hook system
+- Momentum-preserving rope physics
+- Bounce pads and wall bumpers
+- Moving and orbiting hooks
+- Obstacle gates and precision gaps
+- Checkpoints on longer levels
+- Finish-line progression
+- Instant restarts
+- Time + restart based star ratings
+- Local level unlocks and best times
+- Procedural stickman animation
+- Speed trails, particles, camera shake, responsive zoom
+- Generated Web Audio feedback
+- Desktop and mobile input
+
+## Stack
+
+- Phaser 3
+- Vite
+- JavaScript modules
+- Procedural vector graphics — no external game-art assets
+- Web Audio API
+- LocalStorage progression
+
+## Development
 
 ```bash
-python3 -m http.server 4173
+npm install
+npm run dev
 ```
 
-Then open `http://localhost:4173`.
-
-## Quality checks
+Quality check:
 
 ```bash
 npm test
 ```
 
-The test command checks JavaScript syntax, required files, UI anchors, level generation, score thresholds and baseline geometry. GitHub Actions runs the same checks on pushes and pull requests.
+Production build:
 
-## Tech
-
-- HTML5 Canvas 2D
-- Vanilla JavaScript ES modules
-- CSS glassmorphism UI
-- Web Audio API for generated game tones
-- `localStorage` for progression
-
-## V1 architecture
-
-```text
-index.html
-styles.css
-js/
-  main.js      UI, menus, save data, mobile controls
-  game.js      game loop, physics, rendering, collisions, scoring
-  levels.js    level specs + deterministic city generation
-  audio.js     procedural Web Audio cues
-scripts/
-  smoke-test.mjs
+```bash
+npm run build
 ```
 
-## Next upgrades
+## Design rule
 
-The engine is intentionally structured so V2 can add boss chase sequences, collectible routes, alternate suits/characters, richer trick chains, endless mode, music, more advanced animation rigs, authored set pieces, accessibility settings and leaderboards without rewriting the core swing system.
+The game deliberately keeps the controls minimal: **movement comes from physics, not directional controls**. Course design creates the difficulty.
 
 ## License
 
-MIT for the original source code in this repository. Third-party trademarks and copyrighted characters are not included in the project license.
+MIT for the original code in this repository. Third-party trademarks, characters, and art are not included.

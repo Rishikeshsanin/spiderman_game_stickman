@@ -1,13 +1,10 @@
 name: Quality
-
 on:
   push:
     branches: [main]
   pull_request:
-
 permissions:
   contents: read
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -16,5 +13,5 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Run syntax and smoke tests
-        run: npm test
+      - run: npm install --no-audit --no-fund
+      - run: npm test

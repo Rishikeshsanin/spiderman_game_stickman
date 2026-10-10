@@ -2,105 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" />
-  <meta name="theme-color" content="#07111f" />
-  <meta name="description" content="THREAD//RUNNER — a cinematic physics-based web-swinging stickman game." />
-  <title>THREAD//RUNNER</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#11142b" />
+  <meta name="description" content="WEBLINE — a one-button momentum hook game." />
+  <title>WEBLINE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-  <main id="game-shell">
-    <canvas id="game" aria-label="THREAD RUNNER game canvas"></canvas>
+  <main id="app">
+    <div id="game"></div>
 
-    <div id="hud" class="hud hidden" aria-live="polite">
-      <div class="hud-cluster hud-left">
-        <div class="hud-card compact"><span>LEVEL</span><strong id="hud-level">01</strong></div>
-        <div class="hud-card"><span>DISTANCE</span><strong id="hud-distance">0 m</strong></div>
+    <header id="hud" class="hud is-hidden">
+      <button id="backBtn" class="round-button" aria-label="Back to level select">‹</button>
+      <div class="progress-wrap">
+        <div class="level-numbers"><span id="levelCurrent">1</span><span id="levelNext">2</span></div>
+        <div class="progress-track"><i id="progressBar"></i><b id="progressDot"></b></div>
       </div>
-      <div class="hud-cluster hud-center">
-        <div id="combo-card" class="combo-card">
-          <span id="combo-label">FLOW</span>
-          <strong id="hud-combo">x1</strong>
-          <div class="combo-meter"><i id="combo-fill"></i></div>
+      <button id="restartBtn" class="round-button restart" aria-label="Restart level">↻</button>
+    </header>
+
+    <section id="home" class="screen active">
+      <div class="hero-mark" aria-hidden="true"><span></span><i></i><b></b></div>
+      <div class="eyebrow">ONE BUTTON. PURE MOMENTUM.</div>
+      <h1>WEB<span>LINE</span></h1>
+      <p>Hold to hook. Release to fly. Reach the line.</p>
+      <button id="playBtn" class="primary-button">PLAY</button>
+      <button id="levelsBtn" class="text-button">LEVELS</button>
+      <div class="control-pill"><kbd>SPACE</kbd><span>HOLD / RELEASE</span></div>
+      <div class="tap-hint">Touch anywhere on mobile</div>
+    </section>
+
+    <section id="levels" class="screen">
+      <div class="sheet">
+        <div class="sheet-head">
+          <div><div class="eyebrow">COURSE SELECT</div><h2>18 LEVELS</h2></div>
+          <button class="round-button" data-close>×</button>
         </div>
+        <div id="levelGrid" class="level-grid"></div>
       </div>
-      <div class="hud-cluster hud-right">
-        <div class="hud-card"><span>SCORE</span><strong id="hud-score">000000</strong></div>
-        <button id="pause-btn" class="icon-btn" aria-label="Pause game">Ⅱ</button>
+    </section>
+
+    <section id="result" class="screen">
+      <div class="result-card">
+        <div id="resultEyebrow" class="eyebrow">LEVEL CLEARED</div>
+        <h2 id="resultTitle">CLEAN SWING</h2>
+        <div id="resultStars" class="stars">★★★</div>
+        <div class="result-stats">
+          <div><span>TIME</span><strong id="resultTime">0.00s</strong></div>
+          <div><span>BEST</span><strong id="resultBest">0.00s</strong></div>
+          <div><span>RESTARTS</span><strong id="resultDeaths">0</strong></div>
+        </div>
+        <button id="nextBtn" class="primary-button">NEXT</button>
+        <button id="retryBtn" class="text-button">RUN AGAIN</button>
       </div>
+    </section>
+
+    <div id="startPrompt" class="start-prompt is-hidden">
+      <strong>HOLD <kbd>SPACE</kbd></strong>
+      <span>release at the right moment</span>
     </div>
-
-    <section id="menu" class="screen active">
-      <div class="menu-glow"></div>
-      <div class="eyebrow">PHYSICS WEB-SWINGING / V1</div>
-      <h1>THREAD<span>//</span>RUNNER</h1>
-      <p class="tagline">Swing harder. Fly farther. Own the skyline.</p>
-
-      <div class="menu-grid">
-        <article class="feature-card"><b>01</b><span>Momentum-based swinging</span></article>
-        <article class="feature-card"><b>02</b><span>Handcrafted cinematic levels</span></article>
-        <article class="feature-card"><b>03</b><span>Tricks, combos & near misses</span></article>
-      </div>
-
-      <button id="play-btn" class="primary-btn">START RUN <span>↗</span></button>
-      <button id="level-select-btn" class="ghost-btn">LEVEL SELECT</button>
-
-      <div class="controls-hint">
-        <div><kbd>HOLD CLICK</kbd><span>attach web</span></div>
-        <div><kbd>A / D</kbd><span>pump swing</span></div>
-        <div><kbd>SPACE</kbd><span>jump / web</span></div>
-        <div><kbd>W / S</kbd><span>flip</span></div>
-      </div>
-    </section>
-
-    <section id="level-select" class="screen">
-      <div class="panel wide-panel">
-        <div class="panel-head">
-          <div><span class="eyebrow">CHOOSE YOUR RUN</span><h2>LEVEL SELECT</h2></div>
-          <button class="icon-btn close-screen" data-target="level-select">×</button>
-        </div>
-        <div id="level-list" class="level-list"></div>
-      </div>
-    </section>
-
-    <section id="pause-screen" class="screen">
-      <div class="panel">
-        <span class="eyebrow">GAME PAUSED</span>
-        <h2>STAY IN THE FLOW</h2>
-        <button id="resume-btn" class="primary-btn">RESUME</button>
-        <button id="restart-btn" class="ghost-btn">RESTART LEVEL</button>
-        <button id="quit-btn" class="ghost-btn">MAIN MENU</button>
-      </div>
-    </section>
-
-    <section id="result-screen" class="screen">
-      <div class="panel result-panel">
-        <span id="result-kicker" class="eyebrow">LEVEL COMPLETE</span>
-        <h2 id="result-title">SKYLINE CLEARED</h2>
-        <div class="result-grid">
-          <div><span>SCORE</span><strong id="result-score">0</strong></div>
-          <div><span>BEST COMBO</span><strong id="result-combo">x1</strong></div>
-          <div><span>TIME</span><strong id="result-time">0.0s</strong></div>
-        </div>
-        <div id="star-row" class="star-row" aria-label="Level rating">★ ★ ★</div>
-        <button id="next-btn" class="primary-btn">NEXT LEVEL <span>↗</span></button>
-        <button id="retry-btn" class="ghost-btn">RUN IT AGAIN</button>
-        <button id="result-menu-btn" class="ghost-btn">MAIN MENU</button>
-      </div>
-    </section>
-
-    <div id="toast" class="toast" aria-live="assertive"></div>
-
-    <div id="mobile-controls" class="mobile-controls hidden" aria-hidden="true">
-      <div class="move-pad">
-        <button data-control="left">←</button>
-        <button data-control="right">→</button>
-      </div>
-      <button class="web-btn" data-control="web">WEB</button>
-      <button class="trick-btn" data-control="trick">FLIP</button>
-    </div>
+    <div id="toast" class="toast"></div>
   </main>
-
-  <script type="module" src="js/main.js"></script>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>
