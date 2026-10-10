@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
-  <meta name="theme-color" content="#11142b" />
-  <meta name="description" content="WEBLINE — a one-button momentum hook game." />
-  <title>WEBLINE</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" />
+  <meta name="theme-color" content="#071020" />
+  <meta name="description" content="WEB//SLINGER — a one-button web-swinging momentum game." />
+  <title>WEB//SLINGER</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
@@ -26,19 +26,19 @@
 
     <section id="home" class="screen active">
       <div class="hero-mark" aria-hidden="true"><span></span><i></i><b></b></div>
-      <div class="eyebrow">ONE BUTTON. PURE MOMENTUM.</div>
-      <h1>WEB<span>LINE</span></h1>
-      <p>Hold to hook. Release to fly. Reach the line.</p>
-      <button id="playBtn" class="primary-button">PLAY</button>
+      <div class="eyebrow">ONE BUTTON · ONE WEB · KEEP MOVING</div>
+      <h1>WEB<span>//SLINGER</span></h1>
+      <p>Hold to web the nearest point. Release to fly.</p>
+      <button id="playBtn" class="primary-button">SWING</button>
       <button id="levelsBtn" class="text-button">LEVELS</button>
-      <div class="control-pill"><kbd>SPACE</kbd><span>HOLD / RELEASE</span></div>
-      <div class="tap-hint">Touch anywhere on mobile</div>
+      <div class="control-pill"><kbd>SPACE</kbd><span>HOLD TO WEB · RELEASE TO FLY</span></div>
+      <div class="tap-hint">Hold anywhere · release anywhere</div>
     </section>
 
     <section id="levels" class="screen">
       <div class="sheet">
         <div class="sheet-head">
-          <div><div class="eyebrow">COURSE SELECT</div><h2>18 LEVELS</h2></div>
+          <div><div class="eyebrow">WEB COURSE SELECT</div><h2>18 SWINGS</h2></div>
           <button class="round-button" data-close>×</button>
         </div>
         <div id="levelGrid" class="level-grid"></div>
@@ -47,7 +47,7 @@
 
     <section id="result" class="screen">
       <div class="result-card">
-        <div id="resultEyebrow" class="eyebrow">LEVEL CLEARED</div>
+        <div class="eyebrow">COURSE CLEARED</div>
         <h2 id="resultTitle">CLEAN SWING</h2>
         <div id="resultStars" class="stars">★★★</div>
         <div class="result-stats">
@@ -56,16 +56,17 @@
           <div><span>RESTARTS</span><strong id="resultDeaths">0</strong></div>
         </div>
         <button id="nextBtn" class="primary-button">NEXT</button>
-        <button id="retryBtn" class="text-button">RUN AGAIN</button>
+        <button id="retryBtn" class="text-button">SWING AGAIN</button>
       </div>
     </section>
 
     <div id="startPrompt" class="start-prompt is-hidden">
       <strong>HOLD <kbd>SPACE</kbd></strong>
-      <span>release at the right moment</span>
+      <span>nearest web point connects automatically</span>
     </div>
     <div id="toast" class="toast"></div>
   </main>
+
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>

@@ -1,47 +1,46 @@
-# WEBLINE
+# WEB//SLINGER
 
-**One button. Pure momentum.**
+A polished, one-button web-swinging physics game for the browser.
 
-WEBLINE is a browser physics game inspired by the simplicity of one-button hook games: the character is always moving and the player only controls when to attach and release the line.
+**Play:** https://webline-rishi.vercel.app
 
-## Play
+The project uses an original spider-inspired hero and original procedural/vector visuals. It does not bundle official Marvel artwork, logos, audio, or game assets.
 
-**https://thread-runner.vercel.app**
+## The rule
 
-## Controls
+There is only one gameplay input:
 
-- **Hold `SPACE`** — automatically attach to the best usable hook
-- **Release `SPACE`** — preserve momentum and fly
-- **Touch / hold anywhere** — mobile equivalent
+- **Hold SPACE / hold touch** → attach to the nearest reachable web point.
+- **Release** → let go and preserve momentum.
 
 There is no WASD movement and no mouse aiming.
 
-## V2 gameplay
+### Forgiving magnetic web targeting
+
+The web system is intentionally generous:
+
+- It uses the **nearest reachable hook**, not a directional cone.
+- A hook can still be selected **after the player has crossed it**.
+- Holding the input continuously reacquires until a hook enters range.
+- The currently preferred hook is visibly highlighted.
+
+This keeps difficulty in swing timing and course design rather than frustrating targeting misses.
+
+## Current game
 
 - 18 handcrafted courses
-- Auto-targeting hook system
-- Momentum-preserving rope physics
+- One-button desktop and mobile controls
+- Magnetic nearest-hook targeting
+- Momentum-preserving web physics
 - Bounce pads and wall bumpers
-- Moving and orbiting hooks
-- Obstacle gates and precision gaps
-- Checkpoints on longer levels
-- Finish-line progression
-- Instant restarts
-- Time + restart based star ratings
-- Local level unlocks and best times
-- Procedural stickman animation
-- Speed trails, particles, camera shake, responsive zoom
-- Generated Web Audio feedback
-- Desktop and mobile input
-
-## Stack
-
-- Phaser 3
-- Vite
-- JavaScript modules
-- Procedural vector graphics — no external game-art assets
-- Web Audio API
-- LocalStorage progression
+- Moving/orbiting web points
+- Hazards, checkpoints and finish gates
+- Red/blue spider-inspired presentation
+- Web-strand tether rendering
+- Procedural masked stick-hero animation
+- Speed trails, particles, camera feedback and generated audio
+- 1–3 star course ratings
+- Best-time and unlock persistence
 
 ## Development
 
@@ -50,22 +49,16 @@ npm install
 npm run dev
 ```
 
-Quality check:
+Validation and production build:
 
 ```bash
 npm test
 ```
 
-Production build:
+## Stack
 
-```bash
-npm run build
-```
-
-## Design rule
-
-The game deliberately keeps the controls minimal: **movement comes from physics, not directional controls**. Course design creates the difficulty.
+Phaser 3 + Vite + JavaScript modules + Web Audio + localStorage.
 
 ## License
 
-MIT for the original code in this repository. Third-party trademarks, characters, and art are not included.
+MIT for the original code in this repository.
