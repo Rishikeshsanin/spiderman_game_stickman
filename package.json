@@ -1,0 +1,11 @@
+{
+  "name": "thread-runner",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A cinematic physics-based web-swinging stickman game built with HTML5 Canvas.",
+  "scripts": {
+    "dev": "python3 -m http.server 4173",
+    "test": "node --check js/levels.js && node --check js/audio.js && node --check js/game.js && node --check js/main.js && node scripts/smoke-test.mjs"
+  }
+}
