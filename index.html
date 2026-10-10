@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" />
+  <meta name="theme-color" content="#07111f" />
+  <meta name="description" content="THREAD//RUNNER — a cinematic physics-based web-swinging stickman game." />
+  <title>THREAD//RUNNER</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="game-shell">
+    <canvas id="game" aria-label="THREAD RUNNER game canvas"></canvas>
+
+    <div id="hud" class="hud hidden" aria-live="polite">
+      <div class="hud-cluster hud-left">
+        <div class="hud-card compact"><span>LEVEL</span><strong id="hud-level">01</strong></div>
+        <div class="hud-card"><span>DISTANCE</span><strong id="hud-distance">0 m</strong></div>
+      </div>
+      <div class="hud-cluster hud-center">
+        <div id="combo-card" class="combo-card">
+          <span id="combo-label">FLOW</span>
+          <strong id="hud-combo">x1</strong>
+          <div class="combo-meter"><i id="combo-fill"></i></div>
+        </div>
+      </div>
+      <div class="hud-cluster hud-right">
+        <div class="hud-card"><span>SCORE</span><strong id="hud-score">000000</strong></div>
+        <button id="pause-btn" class="icon-btn" aria-label="Pause game">Ⅱ</button>
+      </div>
+    </div>
+
+    <section id="menu" class="screen active">
+      <div class="menu-glow"></div>
+      <div class="eyebrow">PHYSICS WEB-SWINGING / V1</div>
+      <h1>THREAD<span>//</span>RUNNER</h1>
+      <p class="tagline">Swing harder. Fly farther. Own the skyline.</p>
+
+      <div class="menu-grid">
+        <article class="feature-card"><b>01</b><span>Momentum-based swinging</span></article>
+        <article class="feature-card"><b>02</b><span>Handcrafted cinematic levels</span></article>
+        <article class="feature-card"><b>03</b><span>Tricks, combos & near misses</span></article>
+      </div>
+
+      <button id="play-btn" class="primary-btn">START RUN <span>↗</span></button>
+      <button id="level-select-btn" class="ghost-btn">LEVEL SELECT</button>
+
+      <div class="controls-hint">
+        <div><kbd>HOLD CLICK</kbd><span>attach web</span></div>
+        <div><kbd>A / D</kbd><span>pump swing</span></div>
+        <div><kbd>SPACE</kbd><span>jump / web</span></div>
+        <div><kbd>W / S</kbd><span>flip</span></div>
+      </div>
+    </section>
+
+    <section id="level-select" class="screen">
+      <div class="panel wide-panel">
+        <div class="panel-head">
+          <div><span class="eyebrow">CHOOSE YOUR RUN</span><h2>LEVEL SELECT</h2></div>
+          <button class="icon-btn close-screen" data-target="level-select">×</button>
+        </div>
+        <div id="level-list" class="level-list"></div>
+      </div>
+    </section>
+
+    <section id="pause-screen" class="screen">
+      <div class="panel">
+        <span class="eyebrow">GAME PAUSED</span>
+        <h2>STAY IN THE FLOW</h2>
+        <button id="resume-btn" class="primary-btn">RESUME</button>
+        <button id="restart-btn" class="ghost-btn">RESTART LEVEL</button>
+        <button id="quit-btn" class="ghost-btn">MAIN MENU</button>
+      </div>
+    </section>
+
+    <section id="result-screen" class="screen">
+      <div class="panel result-panel">
+        <span id="result-kicker" class="eyebrow">LEVEL COMPLETE</span>
+        <h2 id="result-title">SKYLINE CLEARED</h2>
+        <div class="result-grid">
+          <div><span>SCORE</span><strong id="result-score">0</strong></div>
+          <div><span>BEST COMBO</span><strong id="result-combo">x1</strong></div>
+          <div><span>TIME</span><strong id="result-time">0.0s</strong></div>
+        </div>
+        <div id="star-row" class="star-row" aria-label="Level rating">★ ★ ★</div>
+        <button id="next-btn" class="primary-btn">NEXT LEVEL <span>↗</span></button>
+        <button id="retry-btn" class="ghost-btn">RUN IT AGAIN</button>
+        <button id="result-menu-btn" class="ghost-btn">MAIN MENU</button>
+      </div>
+    </section>
+
+    <div id="toast" class="toast" aria-live="assertive"></div>
+
+    <div id="mobile-controls" class="mobile-controls hidden" aria-hidden="true">
+      <div class="move-pad">
+        <button data-control="left">←</button>
+        <button data-control="right">→</button>
+      </div>
+      <button class="web-btn" data-control="web">WEB</button>
+      <button class="trick-btn" data-control="trick">FLIP</button>
+    </div>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
