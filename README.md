@@ -2,6 +2,8 @@
 
 A fast, cinematic, physics-based web-swinging stickman game that runs directly in the browser.
 
+🎮 **Play V1:** https://thread-runner.vercel.app
+
 > **V1 goal:** make movement feel satisfying first. The project uses an original hero and original procedural/vector visuals; it does not ship Marvel/Spider-Man artwork, logos, music, character models, or other copyrighted assets.
 
 ## What is playable now
